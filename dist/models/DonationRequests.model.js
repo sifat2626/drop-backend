@@ -26,7 +26,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 // Create the DonationRequests schema
 const donationRequestSchema = new mongoose_1.Schema({
-    requesterId: { type: mongoose_1.default.Types.ObjectId, required: true, ref: 'User' }, // Updated to ObjectId
+    requesterId: { type: mongoose_1.default.Types.ObjectId, required: true, ref: 'User' },
+    donorId: { type: mongoose_1.default.Types.ObjectId, ref: 'User', default: null }, // Nullable for pending requests
     recipientName: { type: String, required: true },
     recipientDistrict: { type: String, required: true },
     recipientUpazila: { type: String, required: true },

@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 // Create the User schema
 const userSchema = new mongoose_1.Schema({
-    _id: { type: String, required: true, unique: true },
+    _id: { type: mongoose_1.default.Types.ObjectId, required: true, unique: true },
     name: {
         type: String,
         required: true,
@@ -37,6 +37,10 @@ const userSchema = new mongoose_1.Schema({
         required: true,
         trim: true,
         unique: true,
+    },
+    password: {
+        type: String,
+        required: true, // Password is required for authentication
     },
     avatar: {
         type: String,
@@ -49,6 +53,7 @@ const userSchema = new mongoose_1.Schema({
     district: {
         type: String,
         enum: ['Dhaka', 'Chattogram', 'Sylhet', 'Khulna', 'Rangpur', 'Rajshahi', 'Barisal', 'Mymensingh'],
+        required: true, // Required field for user registration
     },
     upazila: {
         type: String,
@@ -56,14 +61,15 @@ const userSchema = new mongoose_1.Schema({
     role: {
         type: String,
         enum: ['Admin', 'Donor', 'Volunteer'],
-        default: 'Donor',
+        default: 'Donor', // Default role assigned to new users
     },
     status: {
         type: String,
         enum: ['active', 'blocked'],
-        default: 'active',
+        default: 'active', // Default status assigned to new users
     },
-}, { timestamps: true, versionKey: false });
+}, { timestamps: true, versionKey: false } // Automatically manage createdAt and updatedAt fields
+);
 // Create the User model
 const UserModel = mongoose_1.default.model('User', userSchema);
 exports.default = UserModel;
